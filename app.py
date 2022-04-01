@@ -2,12 +2,15 @@ import os
 from flask import Flask, request, abort
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
-
-UPLOAD_FOLDER = './temp/uploads'
+from summarization_utils import extract_input_text, extract_input_text_from_file
 
 app = Flask(__name__)
-app.config['MAX_CONTENT_LENGTH'] = 2 * 1000 * 1000
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1000 * 1000
+
+# Needed in case files need to be saved on the server
+# UPLOAD_FOLDER = './temp/uploads'
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 CORS(app)
 
 @app.route('/summary', methods=['POST'])
@@ -38,13 +41,15 @@ def get_pdf_summary():
 
     file = request.files['input_file']
     if file:
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        # Needed if files are to be read from the server
+        # filename = secure_filename(file.filename)
+        # input_file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        # file.save(input_file_path)
+        # input_text = extract_input_text_from_file(filepath = input_file_path)
+        # os.remove(input_file_path)
 
-        # Either save the file as ^ or directly feed it into the PDF parser
-        # Get output text. Then pass it to the model method
-
-        input_text = "dummy"
+        # Perform read from memory - important to have bounds on file size (MAX_CONTENT_LENGTH)
+        input_text = extract_input_text(file_object = file.stream)
         summary_text = "dummy"
 
         output = {}
