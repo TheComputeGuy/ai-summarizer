@@ -14,6 +14,11 @@ app.config['MAX_CONTENT_LENGTH'] = 1 * 1000 * 1000
 
 CORS(app)
 
+@app.route('/', methods=['GET'])
+@app.route('/isAlive', methods=['GET'])
+def get_health():
+    return "Ready to summarize!"
+
 @app.route('/summary', methods=['POST'])
 def get_summary():
     body = request.get_json()
