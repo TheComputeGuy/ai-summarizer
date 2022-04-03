@@ -35,12 +35,13 @@ def process_in_batches(input_text):
   for sentence in sentences:
     tokens = tokens + len(nltk.word_tokenize(sentence))
     if tokens <= BATCH_SIZE:
-      batch_sentence += sentence
+      batch_sentence = batch_sentence + sentence
     else:
       batches.append(batch_sentence)
       batch_sentence = sentence
       tokens = len(nltk.word_tokenize(sentence))
-  
+  if batch_sentence not in batches:
+    batches.append(batch_sentence) 
   # Pass each batch for summarization. And collect summarization for all sentences
   summary = ''
   for batch in batches:

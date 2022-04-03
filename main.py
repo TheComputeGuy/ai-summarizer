@@ -21,7 +21,7 @@ def get_health():
 
 @app.route('/summary', methods=['POST'])
 def get_summary():
-    body = request.get_json()
+    body = request.form
 
     input_text = body["input"]
 
