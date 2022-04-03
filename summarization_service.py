@@ -4,6 +4,7 @@ import nltk
 from summarization_utils import post_processing
 nltk.download('punkt')
 
+TLDR_POSTFIX = "\n tl;dr:"
 SUMMARIZE_PREFIX = "Summarize this for a second-grade student:\n\n"
 CURIE_ENGINE = "curie"
 BATCH_SIZE = 500
@@ -12,7 +13,7 @@ NUM_TOKENS = 125
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 def _generate_summary(input_text):
-    gpt3_prompt = SUMMARIZE_PREFIX + input_text
+    gpt3_prompt = SUMMARIZE_PREFIX + input_text + TLDR_POSTFIX
     response = openai.Completion.create(
         engine=CURIE_ENGINE,
         prompt=gpt3_prompt,
