@@ -23,17 +23,34 @@ def get_health():
 def get_summary():
     body = request.form
 
+    if 'input' not in body.keys():
+        output = {}
+        output["status"] = "400"
+        output["message"] = "Input missing in request"
+        return output, 400
+
     input_text = body["input"]
 
-    summary_text = process_in_batches(input_text = input_text)
+    if input_text:
+        try:
+            summary_text = process_in_batches(input_text = input_text)
+            output = {}
+            output["input"] = input_text
+            output["summary"] = summary_text
+            output["status"] = "200"
+            output["message"] = "Request complete"
+            return output
+        except Exception as e:
+            print(e)
+            output = {}
+            output["status"] = "500"
+            output["message"] = "An error occured while processing your request"
+            return output, 500
 
-    output_text = {}
-    output_text["input"] = input_text
-    output_text["summary"] = summary_text
-    output_text["status"] = "200"
-    output_text["message"] = "Request complete"
-
-    return output_text
+    output = {}
+    output["status"] = "400"
+    output["message"] = "Input text missing in request"
+    return output, 400
 
 @app.route('/pdfSummary', methods=['POST'])
 def get_pdf_summary():
@@ -43,7 +60,7 @@ def get_pdf_summary():
         output = {}
         output["status"] = "400"
         output["message"] = "File missing in request"
-        return output
+        return output, 400
 
     file = request.files['input_file']
     if file:
@@ -55,19 +72,27 @@ def get_pdf_summary():
         # os.remove(input_file_path)
 
         # Perform read from memory - important to have bounds on file size (MAX_CONTENT_LENGTH)
-        input_text = extract_input_text(file_object = file.stream)
+        try:
+            input_text = extract_input_text(file_object = file.stream)
+            summary_text = process_in_batches(input_text=input_text)
 
-        summary_text = process_in_batches(input_text=input_text)
+            output = {}
+            output["input"] = input_text
+            output["summary"] = summary_text
+            output["status"] = "200"
+            output["message"] = "Request complete"
+            return output
+        except Exception as e:
+            print(e)
+            output = {}
+            output["status"] = "500"
+            output["message"] = "An error occured while processing your request"
+            return output, 500
 
-        output = {}
-        output["input"] = input_text
-        output["summary"] = summary_text
-        output["status"] = "200"
-        output["message"] = "Request complete"
-
-        return output
-
-    return abort(404)
+    output = {}
+    output["status"] = "400"
+    output["message"] = "Could not extract any text from the file!"
+    return output, 400
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
