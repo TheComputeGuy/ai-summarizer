@@ -28,6 +28,14 @@ deactivate
 
 ## Running in local
 
+### Debug mode
+
+```
+python main.py
+```
+
+### Non-debug mode
+
 ```
 python app.py
 ```
