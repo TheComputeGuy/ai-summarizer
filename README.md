@@ -1,4 +1,4 @@
-# Edu Summarizer
+# AI Summarizer
 
 This tool exposes an API to summarize large text inputs into byte-sized chunks. It uses OpenAIs GPT-3 model to accomplish this.
 
