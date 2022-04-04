@@ -40,6 +40,7 @@
   | Variable | Description |
   |----------|-------------|
   |OPENAI_API_KEY|The OpenAI API key. [Generate here](https://openai.com/api/)|
+  |HCAPTCHA_SECRET|The hcaptcha secret corresponding to the sitekey used in frontend. [Generate here](https://www.hcaptcha.com/)|
 
   ### Debug mode
 
