@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, abort
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
-from summarization_utils import extract_input_text
+from summarization_utils import extract_input_text, verify_hcaptcha
 from summarization_service import *
 
 app = Flask(__name__)
@@ -22,6 +22,16 @@ def get_health():
 @app.route('/summary', methods=['POST'])
 def get_summary():
     body = request.form
+
+    if 'hcaptcha_response' not in body.keys():
+        abort(401)
+
+    hcaptcha_response = body['hcaptcha_response']
+
+    is_hcaptcha_valid = verify_hcaptcha(captcha_response = hcaptcha_response)
+
+    if not is_hcaptcha_valid:
+        abort(403)
 
     if 'input' not in body.keys():
         output = {}
@@ -54,6 +64,18 @@ def get_summary():
 
 @app.route('/pdfSummary', methods=['POST'])
 def get_pdf_summary():
+
+    body = request.form
+
+    if 'g-recaptcha-response' not in body.keys():
+        abort(401)
+
+    hcaptcha_response = body['g-recaptcha-response']
+
+    is_hcaptcha_valid = verify_hcaptcha(captcha_response = hcaptcha_response)
+
+    if not is_hcaptcha_valid:
+        abort(403)
 
      # check if the post request has the file part
     if 'input_file' not in request.files:
