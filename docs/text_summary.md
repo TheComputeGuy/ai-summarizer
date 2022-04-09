@@ -14,12 +14,14 @@ Content-Type: application/x-www-form-urlencoded
 
 ```
 input: [input text to be summarized]
+hcaptcha_response: [response of the hcaptcha challenge]
 ```
 
 **Data example**
 
 ```
 input: The Great Depression was a severe worldwide economic depression that took place mostly...
+hcaptcha_response: 85184ADFEASD8615...
 ```
 
 ## Success Response
@@ -39,6 +41,18 @@ input: The Great Depression was a severe worldwide economic depression that took
 
 ## Error Responses
 
+**Condition**: If "hcaptcha_response" form field is missing from request.
+
+**Code**: `401 UNAUTHORIZED`
+
+---
+
+**Condition**: If the response from hCaptcha service is deemed to be not valid.
+
+**Code**: `403 FORBIDDEN`
+
+---
+
 **Condition**: If "input" form field is missing from request.
 
 **Code**: `400 BAD REQUEST`
@@ -52,6 +66,8 @@ input: The Great Depression was a severe worldwide economic depression that took
 }
 ```
 
+---
+
 **Condition**: If input text field is empty
 
 **Code** : `400 BAD REQUEST`
@@ -64,6 +80,8 @@ input: The Great Depression was a severe worldwide economic depression that took
 	"status": "400"
 }
 ```
+
+---
 
 **Condition**: If there's an error in processing the request
 

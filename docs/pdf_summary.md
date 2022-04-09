@@ -14,6 +14,7 @@ enctype: 'multipart/form-data'
 
 ```
 input_file: [Text-based PDF file uploaded in the input]
+g-recaptcha-response: [response of the hcaptcha challenge]
 ```
 
 **Constraints**
@@ -24,6 +25,7 @@ For the file being uploaded to the server, currently a limit of 1MB has been set
 
 ```
 input_file: <great_depression.pdf>
+g-recaptcha-response: 485846AGEASDFE...
 ```
 
 ## Success Response
@@ -43,6 +45,24 @@ input_file: <great_depression.pdf>
 
 ## Error Responses
 
+**Condition**: If "g-recaptcha-response" form field is missing from request.
+
+**Code**: `401 UNAUTHORIZED`
+
+---
+
+**Condition**: If the response from hCaptcha service is deemed to be not valid.
+
+**Code**: `403 FORBIDDEN`
+
+---
+
+**Condition**: If file size is larger than constraints of the API
+
+**Code**: `413 PAYLOAD TOO LARGE`
+
+---
+
 **Condition**: If "input_file" form field is missing from request.
 
 **Code**: `400 BAD REQUEST`
@@ -55,6 +75,8 @@ input_file: <great_depression.pdf>
 	"status": "400"
 }
 ```
+
+---
 
 **Condition**: If no text can be extracted from the PDF
 
@@ -69,6 +91,8 @@ input_file: <great_depression.pdf>
 }
 ```
 
+---
+
 **Condition**: If there's an error in processing the request
 
 **Code**: `500 INTERNAL SERVER ERROR`
@@ -81,7 +105,3 @@ input_file: <great_depression.pdf>
 	"status": "500"
 }
 ```
-
-**Condition**: If file size is larger than constraints of the API
-
-**Code**: `413 PAYLOAD TOO LARGE`
