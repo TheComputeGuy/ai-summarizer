@@ -1,4 +1,4 @@
-  # AI Summarizer
+  # Saransh - Text Summarizer
 
   This tool exposes an API to summarize large text inputs into byte-sized chunks. It uses OpenAIs GPT-3 model to accomplish this.
 
@@ -52,3 +52,11 @@
   ```
   python app.py
   ```
+
+## API Documentation
+The API documentation is available in `/docs`
+
+| Endpoint | Documentation |
+|----------|---------------|
+|/summary|text_summary.md|
+|/pdfSummary|pdf_summary.md|
