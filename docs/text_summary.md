@@ -32,8 +32,8 @@ input: The Great Depression was a severe worldwide economic depression that took
 {
     "input": "The Great Depression was a severe worldwide economic depression that took place mostly...",
     "message": "Request complete",
-	"status": "200",
-	"summary": "The Great Depression was a severe worldwide economic depression that took place..."
+    "status": "200",
+    "summary": "The Great Depression was a severe worldwide economic depression that took place..."
 }
 ```
 
@@ -48,9 +48,11 @@ input: The Great Depression was a severe worldwide economic depression that took
 ```json
 {
     "message": "Input missing in request",
-	"status": "400"
+    "status": "400"
 }
 ```
+
+---
 
 **Condition**: If input text field is empty
 
@@ -61,9 +63,11 @@ input: The Great Depression was a severe worldwide economic depression that took
 ```json
 {
     "message": "Input text missing in request",
-	"status": "400"
+    "status": "400"
 }
 ```
+
+---
 
 **Condition**: If there's an error in processing the request
 
@@ -74,6 +78,6 @@ input: The Great Depression was a severe worldwide economic depression that took
 ```json
 {
     "message": "An error occured while processing your request",
-	"status": "500"
+    "status": "500"
 }
 ```

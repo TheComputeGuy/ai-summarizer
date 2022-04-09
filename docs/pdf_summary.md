@@ -36,8 +36,8 @@ input_file: <great_depression.pdf>
 {
     "input": "The Great Depression was a severe worldwide economic depression that took place mostly...",
     "message": "Request complete",
-	"status": "200",
-	"summary": "The Great Depression was a severe worldwide economic depression that took place..."
+    "status": "200",
+    "summary": "The Great Depression was a severe worldwide economic depression that took place..."
 }
 ```
 
@@ -52,9 +52,11 @@ input_file: <great_depression.pdf>
 ```json
 {
     "message": "File missing in request",
-	"status": "400"
+    "status": "400"
 }
 ```
+
+---
 
 **Condition**: If no text can be extracted from the PDF
 
@@ -65,9 +67,17 @@ input_file: <great_depression.pdf>
 ```json
 {
     "message": "Could not extract any text from the file!",
-	"status": "400"
+    "status": "400"
 }
 ```
+
+---
+
+**Condition**: If file size is larger than constraints of the API
+
+**Code**: `413 PAYLOAD TOO LARGE`
+
+---
 
 **Condition**: If there's an error in processing the request
 
@@ -78,10 +88,6 @@ input_file: <great_depression.pdf>
 ```json
 {
     "message": "An error occured while processing your request",
-	"status": "500"
+    "status": "500"
 }
 ```
-
-**Condition**: If file size is larger than constraints of the API
-
-**Code**: `413 PAYLOAD TOO LARGE`
