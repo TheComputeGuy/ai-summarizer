@@ -1,8 +1,15 @@
   # Saransh - Text Summarizer
 
   This tool exposes an API to summarize large text inputs into byte-sized chunks. It uses OpenAIs GPT-3 model to accomplish this.
+  
+  
+  ## Try it out
+  
+  Try out the API with our [demo backend](https://ai-summarizer.herokuapp.com/) or from our [webapp](https://paulfaraday.github.io/ai-summarizer/)
+
 
   ## Installing
+  
   Start with cloning this repo
   
   ### [Optional - Recommended] Using a virtual environment
