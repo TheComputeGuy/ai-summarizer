@@ -61,7 +61,10 @@
   ```
 
 ## API Documentation
-The API documentation is available in `/docs`
+
+To check app health, go to `<server>:<port>/` or `<server>:<port>/isAlive`
+
+Detailed API documentation for the summary endpoints is available in `docs` folder in the repo
 
 | Endpoint | Documentation |
 |----------|---------------|
